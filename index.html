@@ -15,6 +15,46 @@
   </style>
 </head>
 <body>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const movie = document.querySelector(".movie");
+  const subscribeBtn = document.querySelector(".btn");
+
+  if (!localStorage.getItem("fjUnlocked")) {
+    movie.style.display = "none";
+  }
+
+  subscribeBtn.addEventListener("click", function () {
+    localStorage.setItem("fjUnlocked", "1");
+    setTimeout(function () {
+      movie.style.display = "block";
+    }, 1000);
+  });
+
+  const search = document.createElement("input");
+  search.placeholder = "🔍 Video search karein...";
+  search.style = "width:90%;padding:12px;margin:15px;border-radius:8px;border:1px solid #555;";
+
+  document.querySelector(".wrap").insertBefore(search, movie);
+
+  search.addEventListener("input", function () {
+    movie.style.display =
+      movie.innerText.toLowerCase().includes(search.value.toLowerCase())
+        ? "block" : "none";
+  });
+
+  const iframe = document.querySelector("iframe");
+  const fullscreen = document.createElement("button");
+  fullscreen.innerText = "⛶ Full Screen";
+  fullscreen.style = "padding:12px 20px;margin:10px;border-radius:8px;";
+
+  iframe.parentNode.insertBefore(fullscreen, iframe);
+
+  fullscreen.onclick = function () {
+    if (iframe.requestFullscreen) iframe.requestFullscreen();
+  };
+});
+  </script>
   <div class="wrap">
     <h1>Funny Junction 🎬</h1>
     <p>Funny videos aur entertainment ke liye hamara channel subscribe karein.</p>
